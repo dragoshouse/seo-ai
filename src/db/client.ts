@@ -3,20 +3,32 @@ import postgres from "postgres";
 
 import * as schema from "./schema.ts";
 
-const connectionString = Deno.env.get("DATABASE_URL");
+const databaseUrlError =
+  "DATABASE_URL no está configurada. Por favor, verifica tus variables de entorno.";
 
-if (!connectionString) {
-  throw new Error("DATABASE_URL no está configurada. Por favor, verifica tus variables de entorno.");
-}
+let dbInstance: ReturnType<typeof drizzle<typeof schema>> | null = null;
 
-const queryClient = postgres(connectionString, {
-  max: 10,
-  idle_timeout: 20,
-  connect_timeout: 10,
-  ssl: "require",
-  prepare: false,
-});
+export const getDb = () => {
+  if (dbInstance) {
+    return dbInstance;
+  }
 
-export const db = drizzle(queryClient, { schema });
+  const connectionString = Deno.env.get("DATABASE_URL");
 
-export default db;
+  if (!connectionString) {
+    throw new Error(databaseUrlError);
+  }
+
+  const queryClient = postgres(connectionString, {
+    max: 10,
+    idle_timeout: 20,
+    connect_timeout: 10,
+    ssl: "require",
+    prepare: false,
+  });
+
+  dbInstance = drizzle(queryClient, { schema });
+  return dbInstance;
+};
+
+export default getDb;

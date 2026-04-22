@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 
-import { db } from "./db/client.ts";
+import { getDb } from "./db/client.ts";
 import { organizations } from "./db/schema.ts";
 
 type IngestPayload = {
@@ -43,7 +43,7 @@ Deno.serve(async (request) => {
     return jsonResponse({ message: "Body must be { slug: string, url: string }" }, 400);
   }
 
-  const [organization] = await db
+  const [organization] = await getDb()
     .select()
     .from(organizations)
     .where(eq(organizations.slug, payload.slug))
