@@ -23,6 +23,20 @@ Deno.serve(async (request) => {
     url: request.url,
   });
 
+  if (requestUrl.pathname === "/") {
+    return jsonResponse({
+      service: "seo-ai",
+      status: "ok",
+      endpoints: {
+        ingest: {
+          method: "POST",
+          path: "/api/ingest",
+          body: { slug: "string", url: "string" },
+        },
+      },
+    });
+  }
+
   if (requestUrl.pathname !== "/api/ingest") {
     return jsonResponse({ message: "Not Found" }, 404);
   }
