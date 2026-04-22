@@ -1,13 +1,16 @@
 {
   "tasks": {
-    "start": "deno run --allow-net --allow-env src/main.ts",
+    "start": "deno run --allow-net --allow-env --allow-read src/main.ts",
     "dev": "deno run --watch --allow-net --allow-env src/main.ts",
     "test": "deno test --allow-net --allow-env",
     "db:init": "deno run --allow-net --allow-env src/db/init.ts",
-    "ingest": "deno run --allow-net --allow-env src/ingest.ts"
+    "ingest": "deno run --allow-net --allow-env src/ingest.ts",
+    "db:push": "deno run --allow-net --allow-env --allow-read npm:drizzle-kit push:pg"
   },
   "imports": {
-    "postgres": "npm:postgres@^3.4.4"
+    "postgres": "npm:postgres@^3.4.4",
+    "drizzle-orm": "npm:drizzle-orm@^0.30.0",
+    "drizzle-kit": "npm:drizzle-kit@^0.20.0"
   },
   "compilerOptions": {
     "strict": true
