@@ -5,12 +5,17 @@
     "test": "deno test --allow-net --allow-env",
     "db:init": "deno run --allow-net --allow-env src/db/init.ts",
     "ingest": "deno run --allow-net --allow-env src/ingest.ts",
-    "db:push": "deno run --allow-net --allow-env --allow-read npm:drizzle-kit push:pg"
+    "db:push": "deno run --allow-net --allow-env --allow-read npm:drizzle-kit push:pg",
+    "preview": "deno run -A main.ts"
   },
   "imports": {
     "postgres": "npm:postgres@^3.4.4",
     "drizzle-orm": "npm:drizzle-orm@^0.30.0",
-    "drizzle-kit": "npm:drizzle-kit@^0.20.0"
+    "drizzle-kit": "npm:drizzle-kit@^0.20.0",
+    "$fresh/": "https://deno.land/x/fresh@1.6.8/",
+    "preact": "https://esm.sh/preact@10.19.6",
+    "preact-render-to-string": "https://esm.sh/preact-render-to-string@6.3.1",
+    "@preact/signals": "https://esm.sh/@preact/signals@1.2.2"
   },
   "compilerOptions": {
     "strict": true
