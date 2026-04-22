@@ -1,8 +1,13 @@
 {
   "tasks": {
-    "start": "deno run src/main.ts",
-    "dev": "deno run --watch src/main.ts",
-    "test": "deno test"
+    "start": "deno run --allow-net --allow-env src/main.ts",
+    "dev": "deno run --watch --allow-net --allow-env src/main.ts",
+    "test": "deno test --allow-net --allow-env",
+    "db:init": "deno run --allow-net --allow-env src/db/init.ts",
+    "ingest": "deno run --allow-net --allow-env src/ingest.ts"
+  },
+  "imports": {
+    "postgres": "npm:postgres@^3.4.4"
   },
   "compilerOptions": {
     "strict": true
