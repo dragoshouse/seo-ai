@@ -1,6 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 
-import { db } from "../../db/client.ts";
+import { getDb } from "../../db/client.ts";
 import { organizations } from "../../db/schema.ts";
 
 type GoogleAdsConfig = Record<string, unknown>;
@@ -31,7 +31,7 @@ export const handler: Handlers = {
       return new Response("Budget Daily Limit must be a valid non-negative number", { status: 400 });
     }
 
-    await db.insert(organizations).values({
+    await getDb().insert(organizations).values({
       name,
       slug,
       googleAdsConfig,
